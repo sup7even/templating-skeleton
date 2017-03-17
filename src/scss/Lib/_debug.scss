@@ -1,19 +1,9 @@
 body {
   &:after {
-    @include media-breakpoint-only('xs') {
-      content: 'XS';
-    }
-    @include media-breakpoint-only('sm') {
-      content: 'SM';
-    }
-    @include media-breakpoint-only('md') {
-      content: 'MD';
-    }
-    @include media-breakpoint-only('lg') {
-      content: 'LG';
-    }
-    @include media-breakpoint-only('xl') {
-      content: 'XL';
+    @each $breakpoint in map-keys($grid-breakpoints) {
+      @include media-breakpoint-only($breakpoint) {
+        content: '#{$breakpoint}';
+      }
     }
 
     position: fixed;
@@ -26,5 +16,6 @@ body {
     background: rgba(#000, .75);
     border: 1px solid rgba(#000, .9);
     box-shadow: 0 0 30px rgba(#000, .9);
+    text-transform: uppercase;
   }
 }

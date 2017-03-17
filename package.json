@@ -1,9 +1,9 @@
 {
-  "name": "noe-genetik",
+  "name": "Templating Skeleton",
   "version": "1.0.0",
   "description": "html templates",
   "author": "Volker Kemeter <v.kemeter@supseven.at>",
-  "license": "MIT",
+  "license": "GPL 2",
   "dependencies": {},
   "devDependencies": {
     "bootstrap": "4.0.0-alpha.6",
