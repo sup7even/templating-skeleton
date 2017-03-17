@@ -1,0 +1,30 @@
+body {
+  &:after {
+    @include media-breakpoint-only('xs') {
+      content: 'XS';
+    }
+    @include media-breakpoint-only('sm') {
+      content: 'SM';
+    }
+    @include media-breakpoint-only('md') {
+      content: 'MD';
+    }
+    @include media-breakpoint-only('lg') {
+      content: 'LG';
+    }
+    @include media-breakpoint-only('xl') {
+      content: 'XL';
+    }
+
+    position: fixed;
+    line-height: 20px;
+    font-size: 10px;
+    color: #fff;
+    bottom: $grid-gutter-width-base / 2;
+    left: $grid-gutter-width-base / 2;
+    padding: 5px 15px;
+    background: rgba(#000, .75);
+    border: 1px solid rgba(#000, .9);
+    box-shadow: 0 0 30px rgba(#000, .9);
+  }
+}
