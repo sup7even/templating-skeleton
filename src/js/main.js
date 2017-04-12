@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    $('body').breakpoints({
+    $('head').breakpoints({
         init: true,
     });
 
@@ -7,7 +7,7 @@ $(document).ready(function(){
 });
 
 $(window).resize(function(){
-   $('body').breakpoints();
+   $('head').breakpoints();
    console.log('You are in '+ window.breakpoint +' breakpoint');
 });
 
@@ -38,13 +38,17 @@ $(window).resize(function(){
             $.each(_keys, function (k, v) {
                 _return[v] = _vals[k];
 
-                if (options.init === true) {
-                    $('body').prepend('<i class="breakpoint hidden-' + v + '-down" data-breakpoint="' + v + '" data-width="' + _vals[k] + '" />');
-                }
+                $('body').prepend('<i class="breakpoint hidden-' + v + '-down" data-breakpoint="' + v + '" data-width="' + _vals[k] + '" />');
             });
+
+            if (options.init === true) {
+                window.breakpoints = _return;
+            }
 
             var _activeBreakpoint = $('.breakpoint').not(':visible').slice(-1);
             window.breakpoint = _activeBreakpoint.data('breakpoint').toUpperCase();
+
+            $('.breakpoint').remove();
         }
 
         return this;
