@@ -10,6 +10,9 @@
 	* js concat
 	* inline svg
 	* nunjucks template engine (https://mozilla.github.io/nunjucks/)
+	
+### Features
+* added breakpoints in javascript
 
 ## IMPORTANT
 **ALLWAYS WORK IN SRC FOLDER! FILES GETTING COMPILED TO DIST FOLDER**
