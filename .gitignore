@@ -5,3 +5,4 @@
 /dist/*
 !.gitkeep
 /src/scss/Svg/
+.DS*
