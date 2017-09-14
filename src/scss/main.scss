@@ -1,5 +1,11 @@
+// custom variables
+@import "Lib/variables";
+
 // bootstrap (cleaned)
-@import "../../node_modules/bootstrap/scss/bootstrap";
+@import "Lib/bootstrap";
+
+// family.scss
+@import "../../node_modules/family.scss/source/src/family";
 
 // import mixins
 @import "Lib/mixins";
@@ -9,5 +15,3 @@
 
 // debug
 @import "Lib/debug";
-@import "Lib/family";
-
