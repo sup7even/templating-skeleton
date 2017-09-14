@@ -1,5 +1,5 @@
 var gulp = require('gulp'),
-    sass = require('gulp-ruby-sass'),
+    sass = require('gulp-sass'),
     autoprefixer = require('gulp-autoprefixer'),
     cssnano = require('gulp-cssnano'),
     uglify = require('gulp-uglify'),
@@ -29,8 +29,9 @@ gulp.task('inline-svg', function() {
  * compiles, minifies, concatenate all scss files
  * and copies it to dist directory
  */
-gulp.task('styles', function() {
-    return sass('src/scss/main.scss', { style: 'expanded', sourcemap: true })
+gulp.task('styles', function () {
+    return gulp.src('src/scss/main.scss')
+        .pipe(sass().on('error', sass.logError))
         .pipe(autoprefixer('last 2 version'))
         .pipe(gulp.dest('dist/css'))
         .pipe(rename({ suffix: '.min' }))
