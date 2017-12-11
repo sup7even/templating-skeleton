@@ -2,7 +2,7 @@
 
 ### Infos
 
-* using bootstrap 4 alpha 6
+* using bootstrap 4 beta 2
 * using jquery latest
 * using gulp tasks for 
 	* scss compile
@@ -10,9 +10,11 @@
 	* js concat
 	* inline svg
 	* nunjucks template engine (https://mozilla.github.io/nunjucks/)
+	* json data
 	
 ### Features
 * added breakpoints in javascript
+** fixed the plugin for new bootstrap version
 
 ## IMPORTANT
 **ALLWAYS WORK IN SRC FOLDER! FILES GETTING COMPILED TO DIST FOLDER**
