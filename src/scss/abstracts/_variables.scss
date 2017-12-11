@@ -1,0 +1,34 @@
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px,
+  xxl: 1380px
+);
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1380px
+);
+
+$font-sizes: (
+  xs: 12px,
+  sm: 12px,
+  md: 16px,
+  lg: 20px,
+  xl: 24px,
+  xxl: 28px
+);
+
+$pulled-quote: (
+  lg: -160px,
+  xl: -190px,
+  xxl: -230px,
+);
+
+$serif-small: 'Zilla Slab', serif;
+$font-family-base: $serif-small;

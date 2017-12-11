@@ -1,29 +1,27 @@
+@charset "utf-8";
+
 // custom variables
-@import "Lib/variables";
+@import "abstracts/variables";
 
 // bootstrap (cleaned)
-@import "Lib/bootstrap";
+@import "vendors/bootstrap";
 
 // family.scss
-@import "../../node_modules/family.scss/source/src/family";
+@import "vendors/family";
 
 // import mixins
-@import "Lib/mixins";
+@import "abstracts/mixins";
 
 // inline svg
-// @import "Svg/svg";
+// @import "svg/svg";
+
+// base
+@import "base/base";
+@import "base/fonts";
+
+// components
+@import "components/figure";
+@import "components/news";
 
 // debug
-@import "Lib/debug";
-
-html {
-  font-size: 28px;
-}
-
-*, html {
-  font-weight: 300;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 600;
-}
+@import "base/debug";

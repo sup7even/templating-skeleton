@@ -13,6 +13,7 @@ var gulp = require('gulp'),
     sourcemaps = require('gulp-sourcemaps');
     nunjucksRender = require('gulp-nunjucks-render');
     browserSync = require('browser-sync').create();
+    fs = require('fs');
 
 /**
  * converts all svg files to an inline svg scss file
@@ -32,7 +33,7 @@ gulp.task('inline-svg', function() {
 gulp.task('styles', function () {
     return gulp.src('src/scss/main.scss')
         .pipe(sass().on('error', sass.logError))
-        .pipe(autoprefixer('last 2 version'))
+        .pipe(autoprefixer('last 4 version'))
         .pipe(gulp.dest('dist/css'))
         .pipe(rename({ suffix: '.min' }))
         .pipe(cssnano())
@@ -65,9 +66,12 @@ gulp.task('scripts', function() {
  */
 gulp.task('templates', function() {
     // Gets .html and .nunjucks files in pages
-    return gulp.src('src/nunjucks/pages/**/*.html')
+    return gulp.src('src/nunjucks/templates/**/*.html')
         .pipe(nunjucksRender({
-            path: ['src/nunjucks/templates']
+            data: {
+                content: JSON.parse(fs.readFileSync('src/data/data.json'))
+            },
+            path: ['src/nunjucks']
         }))
         .pipe(gulp.dest('dist/'))
 });
@@ -107,10 +111,11 @@ gulp.task('default', ['clean'], function() {
 /**
  * simple watch task for all scss/js and template files
  */
-gulp.task('watch', function() {
+gulp.task('watch', ['default'], function() {
     gulp.watch('src/js/**/*.js', ['scripts']);
     gulp.watch('src/scss/**/*.scss', ['styles']);
     gulp.watch('src/nunjucks/**/*.html', ['templates']);
+    gulp.watch('src/data/**/*.json', ['templates']);
 });
 
 /**
@@ -118,7 +123,7 @@ gulp.task('watch', function() {
  */
 gulp.task('serve', ['default'], function () {
     browserSync.init({
-        proxy: 'html.vm/noe-genetik/dist/',
+        proxy: 'html.vm/template-skeleton/dist/',
         files: ['dist/css/main.min.css', 'dist/js/main.min.js', 'dist/index.html'],
         notify: true,
         open: false
@@ -127,4 +132,5 @@ gulp.task('serve', ['default'], function () {
     gulp.watch('src/js/**/*.js', ['scripts']);
     gulp.watch('src/scss/**/*.scss', ['styles']);
     gulp.watch('src/nunjucks/**/*.html', ['templates']);
+    gulp.watch('src/data/**/*.json', ['templates']);
 });

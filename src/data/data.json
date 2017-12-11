@@ -1,0 +1,40 @@
+{
+  "pages": {
+    "index": {
+        "title": "Homepage",
+        "bodyClass": "index",
+        "news": [
+          {
+            "headline": "News 1",
+            "content": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.",
+            "date": "2017-01-01"
+          },
+          {
+            "headline": "News 2",
+            "content": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+            "date": "2017-01-01"
+          },
+          {
+            "headline": "News 3",
+            "content": "At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren.",
+            "date": "2017-01-01"
+          },
+          {
+            "headline": "News 4",
+            "content": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+            "date": "2017-01-01"
+          },
+          {
+            "headline": "News 5",
+            "content": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+            "date": "2017-01-01"
+          },
+          {
+            "headline": "News 6",
+            "content": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+            "date": "2017-01-01"
+          }
+        ]
+      }
+  }
+}

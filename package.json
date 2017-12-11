@@ -4,12 +4,14 @@
   "description": "html templates",
   "author": "Volker Kemeter <v.kemeter@supseven.at>",
   "license": "GPL-2.0+",
-  "dependencies": {},
+  "dependencies": {
+    "bootstrap": "4.0.0-beta.2",
+    "family.scss": "^1.0.8",
+    "jquery": "^3.1.1"
+  },
   "devDependencies": {
-    "bootstrap": "4.0.0-alpha.6",
     "browser-sync": "^2.18.8",
     "del": "^2.2.2",
-    "family.scss": "https://github.com/vkemeter/family.scss.git",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.1",
     "gulp-cache": "^0.4.5",
@@ -23,7 +25,6 @@
     "gulp-sass": "^3.1.0",
     "gulp-sourcemaps": "^2.4.1",
     "gulp-svgmin": "^1.2.3",
-    "gulp-uglify": "^2.0.1",
-    "jquery": "^3.1.1"
+    "gulp-uglify": "^2.0.1"
   }
 }

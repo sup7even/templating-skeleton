@@ -8,5 +8,6 @@ $(document).ready(function(){
 
 $(window).resize(function(){
    $('head').breakpoints();
+
    console.log('You are in '+ window.breakpoint +' breakpoint');
 });

@@ -1,0 +1,31 @@
+.figure {
+  &.left {
+    @extend .float-lg-left;
+
+    @include media-breakpoint-only(lg) {
+      margin: ($grid-gutter-width / 2) $grid-gutter-width ($grid-gutter-width / 2) map-get($pulled-quote, lg);
+      max-width: 400px;
+    }
+
+    @include media-breakpoint-only(xl) {
+      margin: ($grid-gutter-width / 2) $grid-gutter-width ($grid-gutter-width / 2) map-get($pulled-quote, xl);
+      max-width: 400px;
+    }
+
+    @include media-breakpoint-only(xxl) {
+      margin: ($grid-gutter-width / 2) $grid-gutter-width ($grid-gutter-width / 2) map-get($pulled-quote, xxl);
+      max-width: 400px;
+    }
+  }
+
+  picture {
+    img {
+      @extend .img-fluid;
+    }
+  }
+
+  figcaption {
+    font-size: .750rem;
+    font-style: italic;
+  }
+}

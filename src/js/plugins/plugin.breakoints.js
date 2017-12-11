@@ -25,15 +25,20 @@
             $.each(_keys, function (k, v) {
                 _return[v] = _vals[k];
 
-                $('body').prepend('<i class="breakpoint hidden-' + v + '-down" data-breakpoint="' + v + '" data-width="' + _vals[k] + '" />');
+                $('body').prepend('<i class="breakpoint d-none d-' + v + '-block" data-breakpoint="' + v + '" data-width="' + _vals[k] + '" />');
             });
 
             if (options.init === true) {
                 window.breakpoints = _return;
             }
 
-            var _activeBreakpoint = $('.breakpoint').not(':visible').slice(-1);
-            window.breakpoint = _activeBreakpoint.data('breakpoint').toUpperCase();
+            var _activeBreakpoint = $('.breakpoint:visible').first();
+
+            if (_activeBreakpoint.length > 0) {
+                window.breakpoint = _activeBreakpoint.data('breakpoint').toUpperCase();
+            } else {
+                window.breakpoint = 'smallest';
+            }
 
             $('.breakpoint').remove();
         }
