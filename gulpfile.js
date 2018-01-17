@@ -23,7 +23,7 @@ gulp.task('inline-svg', function() {
     return gulp.src('src/img/**/*.svg')
         .pipe(svgMin())
         .pipe(inlineSvg())
-        .pipe(gulp.dest('src/scss/Svg/'));
+        .pipe(gulp.dest('src/scss/svg/'));
 });
 
 /**
@@ -98,7 +98,7 @@ gulp.task('fonts', function () {
  * are lost!
  */
 gulp.task('clean', function() {
-    return del(['dist/css/*', 'dist/js/*', 'src/scss/Svg/*', 'dist/*.html', 'dist/img/*', 'dist/fonts/*']);
+    return del(['dist/css/*', 'dist/js/*', 'src/scss/svg/*', 'dist/*.html', 'dist/img/*', 'dist/fonts/*']);
 });
 
 /**
