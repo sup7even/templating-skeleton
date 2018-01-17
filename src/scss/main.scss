@@ -13,7 +13,7 @@
 @import "abstracts/mixins";
 
 // inline svg
-// @import "svg/svg";
+@import "svg/svg";
 
 // base
 @import "base/base";
@@ -22,6 +22,7 @@
 // components
 @import "components/figure";
 @import "components/news";
+@import "components/ie-svg-test";
 
 // debug
 @import "base/debug";

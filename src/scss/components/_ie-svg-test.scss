@@ -1,0 +1,55 @@
+.ie-sgv-test {
+  display: block;
+  width: 100px;
+  height: 100px;
+  border: 1px solid rgba(#000, .2);
+  box-shadow: 0 0 40px rgba(#000, .5);
+  float: left;
+  margin: 20px;
+
+  &:after {
+    content: attr(class);
+    font-size: .5rem;
+  }
+
+  &:before {
+    content: '';
+    display: block;
+  }
+
+  &.a:before {
+    @include inline-svg($test-icon);
+  }
+
+  &.b:before {
+    @include inline-svg($adressdatenbankicons_wohnen);
+    width: 100px;
+    height: 100px;
+  }
+
+  &.c:before {
+    @include inline-svg($adressdatenbankicons_wohnen-test1);
+    width: 100px;
+    height: 100px;
+  }
+
+  &.d:before {
+    @include inline-svg($adressdatenbankicons_wohnen-test2);
+    width: 100px;
+    height: 100px;
+  }
+
+  &.e:before {
+    @include inline-svg($adressdatenbankicons_wohnen-test3);
+    width: 100px;
+    height: 100px;
+  }
+
+  &.f:before {
+    @include inline-svg($test-neu);
+  }
+
+  &.g:before {
+    @include inline-svg($test-2);
+  }
+}
