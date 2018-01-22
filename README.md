@@ -12,7 +12,7 @@
 	* inline svg
 	* nunjucks template engine (https://mozilla.github.io/nunjucks/)
 	* json data
-	* export nunjucks to fluid templates for better typo3 integration
+	* export nunjucks to fluid templates for better TYPO3 integration
 	
 ### Features
 * added breakpoints in javascript
@@ -29,6 +29,7 @@
 1. yarn install
 2. run gulp default or watch task
 3. all files are merged/copied/minified in dist folder
-4. use gulp task "serve" for browsersync 
+4. use gulp task "serve" for browsersync
+5. use gulp task "export-fluid-templates" for TYPO3 ready templates 
 
 _KTHXBYE!_
