@@ -1,8 +1,8 @@
-{% set data = "index" %}
+{% set data = "Default" %}
 
-{% extends "layouts/layout.html" %}
+{% extends "Layouts/Page/Default.html" %}
 
-{% block content %}
+{% block Content %}
 <div class="container">
     <div class="row">
         <div class="col-md col-lg-8 mx-auto">
@@ -20,7 +20,7 @@
         <div class="col col-lg-10 mx-auto">
             <div class="card-columns news">
                 {% for item in content.pages.index.news %}
-                    {% include "partials/news/item.html" %}
+                    {% include "Extensions/News/Partials/List/Item.html" %}
                 {% endfor %}
             </div>
         </div>

@@ -14,6 +14,29 @@ var gulp = require('gulp'),
     nunjucksRender = require('gulp-nunjucks-render');
     browserSync = require('browser-sync').create();
     fs = require('fs');
+    replace = require('gulp-string-replace');
+
+
+gulp.task('export-fluid-templates', function() {
+    gulp.src(["src/nunjucks/**/*.html"])
+        .pipe(replace(new RegExp('{% include "partials\\/(.*)" %}', 'g'), function(r, x){
+            return '<f:render partial="'+ x +'" />';
+        }))
+        .pipe(replace(new RegExp('{% block (.*) %}{% endblock %}', 'g'), function(r, x){
+            return '<f:render section="'+ x +'" />';
+        }))
+        .pipe(replace(new RegExp('{% extends "(.*)" %}', 'g'), function(r, x){
+             return '<f:layout name="'+ x +'" />';
+        }))
+        .pipe(replace(new RegExp('{% block (.*) %}', 'g'), function(r, x){
+             return '<f:section name="'+ x +'">';
+        }))
+        .pipe(replace(new RegExp('{% endblock %}', 'g'), function(r, x){
+             return '</f:section>';
+        }))
+        .pipe(gulp.dest('typo3conf/ext/theme/Resources/Private/'))
+});
+
 
 /**
  * converts all svg files to an inline svg scss file
@@ -66,7 +89,7 @@ gulp.task('scripts', function() {
  */
 gulp.task('templates', function() {
     // Gets .html and .nunjucks files in pages
-    return gulp.src('src/nunjucks/templates/**/*.html')
+    return gulp.src('src/nunjucks/Templates/Page/**/*.html')
         .pipe(nunjucksRender({
             data: {
                 content: JSON.parse(fs.readFileSync('src/data/data.json'))
@@ -98,7 +121,11 @@ gulp.task('fonts', function () {
  * are lost!
  */
 gulp.task('clean', function() {
-    return del(['dist/css/*', 'dist/js/*', 'src/scss/svg/*', 'dist/*.html', 'dist/img/*', 'dist/fonts/*']);
+    return del([
+        'dist/*',
+        'src/scss/svg/*',
+        'typo3conf/*'
+    ]);
 });
 
 /**

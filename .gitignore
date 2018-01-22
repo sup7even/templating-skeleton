@@ -6,3 +6,4 @@
 !.gitkeep
 /src/scss/Svg/
 .DS*
+/typo3conf

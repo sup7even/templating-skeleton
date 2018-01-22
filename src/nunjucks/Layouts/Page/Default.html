@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    {% include "Partials/Page/Head.html" %}
+</head>
+<body class="{{ content.pages[data].bodyClass }}">
+    {% block Content %}{% endblock %}
+    {% include "Partials/Page/beforeBodyEnds.html" %}
+</body>
+</html>
