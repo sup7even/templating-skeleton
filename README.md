@@ -12,10 +12,12 @@
 	* inline svg
 	* nunjucks template engine (https://mozilla.github.io/nunjucks/)
 	* json data
+	* export nunjucks to fluid templates for better typo3 integration
 	
 ### Features
 * added breakpoints in javascript
-** fixed the plugin for new bootstrap version
+* fixed the plugin for new bootstrap version
+* export nunjucks template to fluid ready to use templates
 
 ## IMPORTANT
 **ALLWAYS WORK IN SRC FOLDER! FILES GETTING COMPILED TO DIST FOLDER**
