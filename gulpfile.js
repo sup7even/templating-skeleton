@@ -16,10 +16,21 @@ var gulp = require('gulp'),
     fs = require('fs');
     replace = require('gulp-string-replace');
 
-
+    var _resourceDirectory = 'typo3conf/ext/theme/Resources';
+/**
+ * exports nunjucks template vars and markup
+ * to TYPO3 fluid template vars and markup
+ */
 gulp.task('export-fluid-templates', function() {
+
+    /* delete previous files */
+    del([
+        'typo3conf/*'
+    ]);
+
+    /* convert nunjucks to fluid */
     gulp.src(["src/nunjucks/**/*.html"])
-        .pipe(replace(new RegExp('{% include "partials\\/(.*)" %}', 'g'), function(r, x){
+        .pipe(replace(new RegExp('{% include "(.*)" %}', 'g'), function(r, x){
             return '<f:render partial="'+ x +'" />';
         }))
         .pipe(replace(new RegExp('{% block (.*) %}{% endblock %}', 'g'), function(r, x){
@@ -34,17 +45,50 @@ gulp.task('export-fluid-templates', function() {
         .pipe(replace(new RegExp('{% endblock %}', 'g'), function(r, x){
              return '</f:section>';
         }))
-        .pipe(gulp.dest('typo3conf/ext/theme/Resources/Private/'))
-});
+        .pipe(gulp.dest(_resourceDirectory +'/Private/'))
 
+    /* generate svg */
+    gulp.src('src/img/svg/**/*.svg')
+        .pipe(svgMin())
+        .pipe(gulp.dest(_resourceDirectory +'/Public/Images/Svg'));
+
+    /* generate scss */
+    gulp.src('src/scss/main.scss')
+        .pipe(sass().on('error', sass.logError))
+        .pipe(autoprefixer('last 4 version'))
+        .pipe(cssnano({
+            zindex: false
+        }))
+        .pipe(rename({ suffix: '.min' }))
+        .pipe(gulp.dest(_resourceDirectory +'/Public/Css/'))
+
+    /* generate js */
+    gulp.src([
+            'node_modules/jquery/dist/jquery.min.js',
+            'src/js/**/*.js'
+        ])
+        .pipe(concat('main.js'))
+        .pipe(rename({ suffix: '.min' }))
+        .pipe(uglify())
+        .pipe(gulp.dest(_resourceDirectory +'/Public/JavaScript/'))
+
+    /* copy all images */
+    gulp.src('src/img/*')
+        .pipe(gulp.dest(_resourceDirectory +'/Public/Images/'))
+
+    /* copy all fonts */
+    gulp.src('src/fonts/**/*')
+        .pipe(gulp.dest(_resourceDirectory +'/Public/Fonts/'))
+});
 
 /**
  * converts all svg files to an inline svg scss file
  * destination is in src for including in src scss files
  */
 gulp.task('inline-svg', function() {
-    return gulp.src('src/img/**/*.svg')
+    return gulp.src('src/img/svg/**/*.svg')
         .pipe(svgMin())
+        .pipe(gulp.dest('dist/img/svg/'))
         .pipe(inlineSvg())
         .pipe(gulp.dest('src/scss/svg/'));
 });
@@ -59,7 +103,9 @@ gulp.task('styles', function () {
         .pipe(autoprefixer('last 4 version'))
         .pipe(gulp.dest('dist/css'))
         .pipe(rename({ suffix: '.min' }))
-        .pipe(cssnano())
+        .pipe(cssnano({
+            zindex: false
+        }))
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest('dist/css'))
         .pipe(notify({ message: 'Styles task complete' }));
@@ -151,7 +197,7 @@ gulp.task('watch', ['default'], function() {
 gulp.task('serve', ['default'], function () {
     browserSync.init({
         proxy: 'html.vm/template-skeleton/dist/',
-        files: ['dist/css/main.min.css', 'dist/js/main.min.js', 'dist/index.html'],
+        files: ['dist/css/main.min.css', 'dist/js/main.min.js', 'dist/**/*.html'],
         notify: true,
         open: false
     });
