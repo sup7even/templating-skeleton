@@ -1,13 +1,11 @@
 $(document).ready(function(){
-    $('head').breakpoints({
-        init: true,
-    });
-
-    console.log('You are in '+ window.breakpoint +' breakpoint');
+    window.activeBreakpoint = $.Breakpoints({init: true});
 });
 
 $(window).resize(function(){
-   $('head').breakpoints();
-
-   console.log('You are in '+ window.breakpoint +' breakpoint');
+    var _activeBreakpoint = $.Breakpoints();
+    if (_activeBreakpoint !== window.activeBreakpoint) {
+        window.activeBreakpoint = _activeBreakpoint;
+        console.log(window.activeBreakpoint);
+    }
 });
