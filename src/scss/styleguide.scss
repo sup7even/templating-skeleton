@@ -1,0 +1,50 @@
+@charset "utf-8";
+
+// custom variables
+@import "abstracts/variables";
+
+// bootstrap (cleaned)
+@import "vendors/bootstrap";
+
+// import mixins
+@import "abstracts/mixins";
+
+// debug
+@import "base/debug";
+html, body, body > .container {
+  overflow: hidden;
+  height: 100%;
+
+  & > .container {
+    & > .row {
+      &:first-child {
+        padding: ($grid-gutter-width / 2) 0;
+        border-bottom: 1px solid #000;
+
+        a {
+          text-transform: uppercase;
+        }
+
+        & + .row {
+          height: calc(100% - 70px);
+
+          iframe {
+            border: none;
+          }
+
+          > .small {
+            @extend .d-flex, .flex-column, .justify-content-center;
+
+            transition: all .2s ease-in-out;
+
+            iframe {
+              border: 1px solid #000;
+              box-shadow: 0 0 30px rgba(#000, .8);
+              max-height: 75vh;
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -19,7 +19,6 @@
             if (options.selector.css('content')) {
                 var _breakpoints = options.selector.css('content').slice(1, -1);
                 var _breakpoints = _breakpoints.split(',');
-                var activeBreakpoint;
                 var _keys = [];
                 var _vals = [];
 

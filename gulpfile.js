@@ -97,7 +97,7 @@ gulp.task('inline-svg', function() {
  * compiles, minifies, concatenate all scss files
  * and copies it to dist directory
  */
-gulp.task('styles', function () {
+gulp.task('styles', [ 'styles-styleguide' ], function () {
     return gulp.src('src/scss/main.scss')
         .pipe(sass().on('error', sass.logError))
         .pipe(autoprefixer('last 4 version'))
@@ -111,15 +111,28 @@ gulp.task('styles', function () {
         .pipe(notify({ message: 'Styles task complete' }));
 });
 
+gulp.task('styles-styleguide', function () {
+    return gulp.src('src/scss/styleguide.scss')
+        .pipe(sass().on('error', sass.logError))
+        .pipe(autoprefixer('last 4 version'))
+        .pipe(gulp.dest('dist/css'))
+        .pipe(cssnano({
+            zindex: false
+        }))
+        .pipe(sourcemaps.write('.'))
+        .pipe(gulp.dest('dist/css'))
+});
+
 /**
  * compiles, minifies, concatenate all js files
  * from src and node_modules folder, if needed
  * and copies it to dist directory
  */
-gulp.task('scripts', function() {
+gulp.task('scripts', [ 'styleguide-scripts' ], function() {
     return gulp.src([
         'node_modules/jquery/dist/jquery.min.js',
-        'src/js/**/*.js'
+        'src/js/**/*.js',
+        '!src/js/styleguide.js'
     ])
         .pipe(concat('main.js'))
         .pipe(gulp.dest('dist/js'))
@@ -127,6 +140,17 @@ gulp.task('scripts', function() {
         .pipe(uglify())
         .pipe(gulp.dest('dist/js'))
         .pipe(notify({ message: 'Scripts task complete' }));
+});
+
+gulp.task('styleguide-scripts', function() {
+    return gulp.src([
+        'node_modules/jquery/dist/jquery.min.js',
+        'node_modules/bootstrap/dist/js/bootstrap.bundle.js',
+        'src/js/**/*.js',
+        '!src/js/main.js'
+    ])
+        .pipe(concat('styleguide.js'))
+        .pipe(gulp.dest('dist/js'))
 });
 
 /**
