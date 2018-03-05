@@ -162,9 +162,14 @@ gulp.task('templates', function() {
     return gulp.src('src/nunjucks/Templates/Page/**/*.html')
         .pipe(nunjucksRender({
             data: {
-                content: JSON.parse(fs.readFileSync('src/data/data.json'))
+                content: JSON.parse(fs.readFileSync('src/data/data.json')),
+                devices: JSON.stringify(JSON.parse(fs.readFileSync('src/data/devices.json')))
             },
-            path: ['src/nunjucks']
+            path: ['src/nunjucks'],
+            envOptions: {
+                autoescape: false
+            }
+
         }))
         .pipe(gulp.dest('dist/'))
 });

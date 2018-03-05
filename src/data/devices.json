@@ -1,0 +1,16 @@
+{
+  "mobile": {
+      "title": "Mobile",
+      "width": 320,
+      "height": 568,
+      "icon": "",
+      "background": ""
+    },
+  "tablet": {
+      "title": "Tablet",
+      "width": 768,
+      "height": 1024,
+      "icon": "",
+      "background": ""
+    }
+}

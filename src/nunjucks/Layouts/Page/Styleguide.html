@@ -8,6 +8,9 @@
 </head>
 <body>
     {% block Content %}{% endblock %}
+    <script>
+        var _devices = JSON.parse('{{ devices }}');
+    </script>
     <script type="text/javascript" src="js/styleguide.js"></script>
 </body>
 </html>
