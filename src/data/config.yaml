@@ -1,0 +1,33 @@
+- config: {
+    breakpoints: {
+      export: {
+        scss: {
+          name: grid-breakpoints,
+          file: src/scss/abstracts/_breakpoints.scss,
+        }
+      },
+      values: {
+        xs: 0,
+        sm: 576px,
+        md: 768px,
+        lg: 992px,
+        xl: 1200px,
+        xxl: 1380px,
+      }
+    },
+    container: {
+      export: {
+        scss: {
+          name: container-max-widths,
+          file: src/scss/abstracts/_container.scss,
+        }
+      },
+      values: {
+        sm: 540px,
+        md: 720px,
+        lg: 960px,
+        xl: 1140px,
+        xxl: 1380px
+      }
+    }
+}

@@ -19,7 +19,9 @@ var gulp = require('gulp'),
     tsProject = ts.createProject("tsconfig.json"),
     browserify = require("browserify"),
     source = require('vinyl-source-stream'),
-    tsify = require("tsify");
+    tsify = require("tsify"),
+    read = require('read-data'),
+    writeFile = require('write');
 
     var _resourceDirectory = 'typo3conf/ext/theme/Resources';
 /**
@@ -156,6 +158,10 @@ gulp.task('scripts-styleguide', function() {
         .pipe(gulp.dest('dist/js'))
 });
 
+/**
+ * newly implemented styleguide typescript
+ * @TODO: almost everything ;) not finished yet
+ */
 gulp.task("typescript", function () {
     return browserify({
         basedir: '.',
@@ -225,6 +231,7 @@ gulp.task('clean', function() {
  */
 gulp.task('default', ['clean'], function() {
     gulp.start(
+        'config',
         'inline-svg',
         'styles',
         'styles-styleguide',
@@ -270,4 +277,43 @@ gulp.task('serve', ['default'], function () {
     gulp.watch('src/scss/**/*.scss', ['styles']);
     gulp.watch('src/nunjucks/**/*.html', ['templates']);
     gulp.watch('src/data/**/*.json', ['templates']);
+});
+
+/**
+ * reads yaml config and writes several files
+ * e.g. scss files
+ */
+gulp.task('config', function(){
+    read('src/data/config.yaml', function(err, data) {
+        if (err) {
+            return console.log(err);
+        }
+
+        for (key in data) {
+            var _entry = data[key];
+            for (exports in _entry) {
+                for (key in _entry[exports]) {
+                    for (value in _entry[exports][key].export) {
+                        var _return = [];
+                        if (value == 'scss') {
+                            var _name = _entry[exports][key].export[value].name;
+                            var _file = _entry[exports][key].export[value].file;
+                            _return.push('// ' + _name + ', created with gulp task and yaml config');
+                            _return.push('// created at: ' + new Date().toString());
+                            _return.push('$' + _name + ': (');
+                            for (breakpoint in _entry[exports][key].values) {
+                                _return.push('\t' + breakpoint + ': ' + _entry[exports][key].values[breakpoint] + ',');
+                            }
+                            _return.push(');');
+                        }
+                        writeFile(_file,  _return.join('\n'), function(err) {
+                            if (err) {
+                                console.log(err);
+                            }
+                        });
+                    }
+                }
+            }
+        }
+    });
 });
