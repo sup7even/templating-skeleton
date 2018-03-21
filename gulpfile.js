@@ -9,12 +9,17 @@ var gulp = require('gulp'),
     cache = require('gulp-cache'),
     inlineSvg = require("gulp-inline-svg"),
     svgMin = require('gulp-svgmin'),
-    del = require('del');
-    sourcemaps = require('gulp-sourcemaps');
-    nunjucksRender = require('gulp-nunjucks-render');
-    browserSync = require('browser-sync').create();
-    fs = require('fs');
-    replace = require('gulp-string-replace');
+    del = require('del'),
+    sourcemaps = require('gulp-sourcemaps'),
+    nunjucksRender = require('gulp-nunjucks-render'),
+    browserSync = require('browser-sync').create(),
+    fs = require('fs'),
+    replace = require('gulp-string-replace'),
+    ts = require("gulp-typescript"),
+    tsProject = ts.createProject("tsconfig.json"),
+    browserify = require("browserify"),
+    source = require('vinyl-source-stream'),
+    tsify = require("tsify");
 
     var _resourceDirectory = 'typo3conf/ext/theme/Resources';
 /**
@@ -107,8 +112,7 @@ gulp.task('styles', [ 'styles-styleguide' ], function () {
             zindex: false
         }))
         .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest('dist/css'))
-        .pipe(notify({ message: 'Styles task complete' }));
+        .pipe(gulp.dest('dist/css'));
 });
 
 gulp.task('styles-styleguide', function () {
@@ -128,7 +132,7 @@ gulp.task('styles-styleguide', function () {
  * from src and node_modules folder, if needed
  * and copies it to dist directory
  */
-gulp.task('scripts', [ 'styleguide-scripts' ], function() {
+gulp.task('scripts', [ 'scripts-styleguide' ], function() {
     return gulp.src([
         'node_modules/jquery/dist/jquery.min.js',
         'src/js/**/*.js',
@@ -138,11 +142,10 @@ gulp.task('scripts', [ 'styleguide-scripts' ], function() {
         .pipe(gulp.dest('dist/js'))
         .pipe(rename({ suffix: '.min' }))
         .pipe(uglify())
-        .pipe(gulp.dest('dist/js'))
-        .pipe(notify({ message: 'Scripts task complete' }));
+        .pipe(gulp.dest('dist/js'));
 });
 
-gulp.task('styleguide-scripts', function() {
+gulp.task('scripts-styleguide', function() {
     return gulp.src([
         'node_modules/jquery/dist/jquery.min.js',
         'node_modules/bootstrap/dist/js/bootstrap.bundle.js',
@@ -151,6 +154,20 @@ gulp.task('styleguide-scripts', function() {
     ])
         .pipe(concat('styleguide.js'))
         .pipe(gulp.dest('dist/js'))
+});
+
+gulp.task("typescript", function () {
+    return browserify({
+        basedir: '.',
+        debug: true,
+        entries: ['src/typescript/styleguide.ts'],
+        cache: {},
+        packageCache: {}
+    })
+        .plugin(tsify)
+        .bundle()
+        .pipe(source('styleguide.js'))
+        .pipe(gulp.dest("dist/js/test/"));
 });
 
 /**
@@ -207,7 +224,17 @@ gulp.task('clean', function() {
  * default task - use for initial compiling
  */
 gulp.task('default', ['clean'], function() {
-    gulp.start('inline-svg', 'styles', 'scripts', 'templates', 'images', 'fonts');
+    gulp.start(
+        'inline-svg',
+        'styles',
+        'styles-styleguide',
+        'scripts',
+        'scripts-styleguide',
+        'typescript',
+        'templates',
+        'images',
+        'fonts'
+    );
 });
 
 /**
@@ -218,6 +245,14 @@ gulp.task('watch', ['default'], function() {
     gulp.watch('src/scss/**/*.scss', ['styles']);
     gulp.watch('src/nunjucks/**/*.html', ['templates']);
     gulp.watch('src/data/**/*.json', ['templates']);
+    gulp.watch('src/typescript/**/*.ts', ['typescript']);
+});
+
+/**
+ * simple watch task for typescript only
+ */
+gulp.task('watch-ts', function() {
+    gulp.watch('src/typescript/**/*.ts', ['typescript']);
 });
 
 /**

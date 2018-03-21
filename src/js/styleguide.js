@@ -1,20 +1,6 @@
 $(document).ready(function(){
     window.activeBreakpoint = $.Breakpoints({init: true});
 
-    $.each(window.breakpoints, function(key, value) {
-        var nav = $('<li />')
-            .addClass('nav-item')
-            .append(
-                $('<a />')
-                    .addClass('nav-link')
-                    .attr('data-breakpoint', key)
-                    .attr('href', '#')
-                    .text(key)
-            );
-
-        $('.nav').append(nav);
-    });
-
     var _iframe = document.getElementById('iframe');
     var _body = _iframe.contentDocument.getElementsByTagName('body')[0];
 
@@ -136,6 +122,7 @@ $(document).ready(function(){
     });
 });
 
+/*
 $(window).resize(function(){
     var _activeBreakpoint = $.Breakpoints();
     if (_activeBreakpoint !== window.activeBreakpoint) {
@@ -143,3 +130,4 @@ $(window).resize(function(){
         console.log(window.activeBreakpoint);
     }
 });
+*/
