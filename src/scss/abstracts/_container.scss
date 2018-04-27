@@ -1,9 +1,9 @@
-// container-max-widths, created with gulp task and yaml config
-// created at: Wed Mar 21 2018 21:54:04 GMT+0100 (CET)
-$container-max-widths: (
+// src/scss/abstracts/_container.scss, created with gulp task and yaml config
+// created at: Fri Apr 27 2018 17:41:57 GMT+0200 (CEST)
+$container-max-widths,: (
 	sm: 540px,
 	md: 720px,
 	lg: 960px,
 	xl: 1140px,
-	xxl: 1380px,
+	xxl: 1380px
 );

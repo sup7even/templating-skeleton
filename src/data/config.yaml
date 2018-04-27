@@ -1,33 +1,30 @@
-- config: {
-    breakpoints: {
-      export: {
-        scss: {
-          name: grid-breakpoints,
-          file: src/scss/abstracts/_breakpoints.scss,
-        }
-      },
-      values: {
-        xs: 0,
-        sm: 576px,
-        md: 768px,
-        lg: 992px,
-        xl: 1200px,
-        xxl: 1380px,
-      }
-    },
-    container: {
-      export: {
-        scss: {
-          name: container-max-widths,
-          file: src/scss/abstracts/_container.scss,
-        }
-      },
-      values: {
-        sm: 540px,
-        md: 720px,
-        lg: 960px,
-        xl: 1140px,
-        xxl: 1380px
-      }
-    }
-}
+config:
+  breakpoints:
+    export:
+      scss:
+        name: grid-breakpoints
+        file: src/scss/abstracts/_breakpoints.scss
+#      constantsts:
+#        name: site.breakpoints
+#        file: src/test.constantsts
+#        additional: max
+    values:
+      - { key: xs, value: 0 }
+      - { key: sm, value: 576px }
+      - { key: md, value: 768px }
+      - { key: lg, value: 992px }
+      - { key: xl, value: 1200px }
+      - { key: xxl, value: 1380px }
+      - { key: xxxl, value: 1380px }
+
+  container:
+    export:
+      scss:
+        name: container-max-widths,
+        file: src/scss/abstracts/_container.scss
+    values:
+      - { key: sm, value: 540px }
+      - { key: md, value: 720px }
+      - { key: lg, value: 960px }
+      - { key: xl, value: 1140px }
+      - { key: xxl, value: 1380px }

@@ -1,3 +1,5 @@
+import * as $ from "jquery";
+
 export class Breakpoints {
     /**
      * all breakpoints
@@ -22,7 +24,7 @@ export class Breakpoints {
      * init function is called via
      * constructor
      */
-    init() {
+    init(): void {
         this.setBreakpoints();
         this.removeSelectorFromDom();
         this.setHtmlDataAttribute();

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" data-devices='{{ devices }}'>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -8,10 +8,6 @@
 </head>
 <body>
     {% block Content %}{% endblock %}
-    <script>
-        var _devices = JSON.parse('{{ devices }}');
-    </script>
-    <script type="text/javascript" src="js/styleguide.js"></script>
     <script type="text/javascript" src="js/test/styleguide.js"></script>
 </body>
 </html>

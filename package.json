@@ -5,10 +5,12 @@
   "author": "Volker Kemeter <v.kemeter@supseven.at>",
   "license": "GPL-2.0+",
   "dependencies": {
+    "@types/bootstrap": "^4.0.1",
     "bootstrap": "^4.0.0",
     "browserify": "^16.1.1",
     "family.scss": "^1.0.8",
     "jquery": "^3.1.1",
+    "popper.js": "^1.14.3",
     "tsify": "^3.0.4",
     "vinyl-source-stream": "^2.0.0"
   },

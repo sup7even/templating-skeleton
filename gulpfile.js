@@ -289,31 +289,77 @@ gulp.task('config', function(){
             return console.log(err);
         }
 
-        for (key in data) {
-            var _entry = data[key];
-            for (exports in _entry) {
-                for (key in _entry[exports]) {
-                    for (value in _entry[exports][key].export) {
-                        var _return = [];
-                        if (value == 'scss') {
-                            var _name = _entry[exports][key].export[value].name;
-                            var _file = _entry[exports][key].export[value].file;
-                            _return.push('// ' + _name + ', created with gulp task and yaml config');
-                            _return.push('// created at: ' + new Date().toString());
-                            _return.push('$' + _name + ': (');
-                            for (breakpoint in _entry[exports][key].values) {
-                                _return.push('\t' + breakpoint + ': ' + _entry[exports][key].values[breakpoint] + ',');
-                            }
-                            _return.push(');');
+        var config = data['config'],
+            exports,
+            type,
+            i;
+
+        for (exports in config) {
+            var entry = config[exports];
+            var values = entry['values'];
+
+            for (type in entry['export']) {
+                var _variableName = entry['export'][type].name,
+                    _fileName = entry['export'][type].file,
+                    _return = [];
+
+                for(i in values) {
+                    i = parseInt(i);
+                    _return.push(writeLn(values[i].key, values[i].value, type));
+
+                    if (typeof entry['export'][type].additional !== 'undefined') {
+                        if (typeof values[i + 1] !== 'undefined') {
+                            _return.push(writeLn(values[i].key +'-'+ entry['export'][type].additional, parseInt(values[i + 1].value) - 1 +'px', type));
                         }
-                        writeFile(_file,  _return.join('\n'), function(err) {
-                            if (err) {
-                                console.log(err);
-                            }
-                        });
                     }
                 }
+
+                var content = wrap(joinLines(_return, type), _variableName, type, _fileName);
+                writeFile(_fileName, content, function(err) {
+                    if (err) {
+                        console.log(err);
+                    }
+                });
             }
         }
     });
 });
+
+function writeLn(key, value, type) {
+    var separator = {
+        'scss': ': ',
+        'constantsts': ' = '
+    };
+
+    return key + (typeof separator[type] !== 'undefined' ? separator[type] : '') + value;
+}
+
+function joinLines(object, type) {
+    var eol = {
+        'scss': ',',
+    };
+
+    for(k in object) {
+        object[k] = '\t'+ object[k];
+    }
+
+    return object.join((typeof eol[type] !== 'undefined' ? eol[type] : '') +'\n');
+}
+
+function wrap(string, variableName, type, fileName) {
+    var wrap = {
+        'scss': {
+            'start': '$'+ variableName +': (\n',
+            'end': '\n);',
+        },
+        'constantsts': {
+            'start': variableName +' {\n',
+            'end': '\n}',
+        },
+    }
+
+    var comment  = '// ' + fileName + ', created with gulp task and yaml config\n';
+        comment += '// created at: ' + new Date().toString() +'\n';
+
+    return comment + (typeof wrap[type] !== undefined ? wrap[type]['start'] : '') + string + (typeof wrap[type] !== undefined ? wrap[type]['end'] : '');
+}

@@ -19,7 +19,14 @@
     normalize-path "^2.0.1"
     through2 "^2.0.3"
 
-"@types/jquery@^3.3.1":
+"@types/bootstrap@^4.0.1":
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/@types/bootstrap/-/bootstrap-4.0.1.tgz#7eddfc4e56143cfc54de0fba573d9724ec8b2712"
+  dependencies:
+    "@types/jquery" "*"
+    popper.js "^1.14.1"
+
+"@types/jquery@*", "@types/jquery@^3.3.1":
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.3.1.tgz#55758d44d422756d6329cbf54e6d41931d7ba28f"
 
@@ -3917,6 +3924,10 @@ plugin-error@^0.1.2:
     arr-diff "^1.0.1"
     arr-union "^2.0.1"
     extend-shallow "^1.1.2"
+
+popper.js@^1.14.1, popper.js@^1.14.3:
+  version "1.14.3"
+  resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.14.3.tgz#1438f98d046acf7b4d78cd502bf418ac64d4f095"
 
 portscanner@2.1.1:
   version "2.1.1"

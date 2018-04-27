@@ -1,5 +1,5 @@
-// grid-breakpoints, created with gulp task and yaml config
-// created at: Wed Mar 21 2018 21:54:04 GMT+0100 (CET)
+// src/scss/abstracts/_breakpoints.scss, created with gulp task and yaml config
+// created at: Fri Apr 27 2018 17:41:57 GMT+0200 (CEST)
 $grid-breakpoints: (
 	xs: 0,
 	sm: 576px,
@@ -7,4 +7,5 @@ $grid-breakpoints: (
 	lg: 992px,
 	xl: 1200px,
 	xxl: 1380px,
+	xxxl: 1380px
 );

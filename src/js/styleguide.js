@@ -1,20 +1,21 @@
 $(document).ready(function(){
     window.activeBreakpoint = $.Breakpoints({init: true});
 
-    var _iframe = document.getElementById('iframe');
-    var _body = _iframe.contentDocument.getElementsByTagName('body')[0];
+    // var _iframe = document.getElementById('iframe');
+    // var _body = _iframe.contentDocument.getElementsByTagName('body')[0];
+    //
+    // $('.nav').append('<li class="nav-item dropdown atoms"><a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Atoms</a><div class="dropdown-menu"></div></li>');
+    //
+    // $.each($(_body).find('h1'), function(k,v){
+    //     var nav = $('<a />')
+    //                 .addClass('nav-link')
+    //                 .attr('href', '#')
+    //                 .text($(v).text());
+    //
+    //     $('.sections .dropdown-menu').append(nav);
+    // });
 
-    $('.nav').append('<li class="nav-item dropdown sections"><a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Atoms</a><div class="dropdown-menu"></div></li>');
-
-    $.each($(_body).find('h1'), function(k,v){
-        var nav = $('<a />')
-                    .addClass('nav-link')
-                    .attr('href', '#')
-                    .text($(v).text());
-
-        $('.sections .dropdown-menu').append(nav);
-    });
-
+    /*
     $('.nav').append('<li class="nav-item dropdown devices"><a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Devices</a><div class="dropdown-menu"></div></li>');
 
     $.each(_devices, function(k, v){
@@ -47,6 +48,7 @@ $(document).ready(function(){
             .find('iframe')
             .css('max-height', _height);
     });
+    */
 
     $(document).on('click', 'a[data-breakpoint]', function(e){
         e.preventDefault();

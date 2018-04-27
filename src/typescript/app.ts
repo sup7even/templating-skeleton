@@ -1,3 +1,8 @@
+import * as $ from "jquery";
+import { Devices } from "./devices";
+import { Sections } from "./sections";
+import { Grid } from "./grid";
+
 export class App {
     constructor() {
     }
@@ -20,6 +25,20 @@ export class App {
 
             $('.nav').append(nav);
         });
+    }
 
+    /**
+     * creates the devices navigation
+     */
+    createDevicesSwitcher(): void {
+        new Devices();
+    }
+
+    createSectionSwitcher(): void {
+        new Sections();
+    }
+
+    createGrid(): void {
+        new Grid();
     }
 }
