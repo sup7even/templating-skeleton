@@ -12,21 +12,9 @@ export class Clickhandler {
     grid(): void {
         var grid = new Grid();
 
-        $(document).on('click', '.nav .styleguide-grid', function(e){
+        $(document).on('click', '.nav .'+ grid.className, function(e){
             e.preventDefault();
-            $(this).toggleClass('active');
-
-            if ($(this).hasClass('grid-visible')) {
-                $('.wrapper .styleguide-grid').remove();
-                $(this).removeClass('grid-visible');
-            } else {
-                $('.wrapper').prepend(
-                    grid.overlay()
-                );
-
-                $(this).addClass('grid-visible');
-            }
-
+            grid.toggleGrid($(this));
         });
     }
 
@@ -40,11 +28,13 @@ export class Clickhandler {
             $('.active').removeClass('active');
             $(this).toggleClass('active');
 
+            console.log($(this).data('breakpoint').indexOf('xl'));
+
             if ($(this).data('breakpoint') == 'xs') {
                 $('.wrapper')
                     .addClass('small')
                     .css('max-width', '320px');
-            } else if ($(this).data('breakpoint') == 'xl'){
+            } else if ($(this).data('breakpoint').indexOf('xl') !== -1){
                 $('.wrapper')
                     .removeClass('small')
                     .removeAttr('style');
@@ -52,6 +42,13 @@ export class Clickhandler {
                 $('.wrapper')
                     .addClass('small')
                     .css('max-width', breakpoint.breakpoints[$(this).data('breakpoint')]);
+            }
+
+            var grid = new Grid();
+
+            if ($('.nav-link.'+ grid.className).hasClass('grid-visible')) {
+                grid.removeGrid();
+                grid.addGrid();
             }
         });
 

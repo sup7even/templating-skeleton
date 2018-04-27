@@ -4,6 +4,8 @@ import {Breakpoints} from "./breakpoints";
 export class Grid {
     grid: any;
     cols: any = [];
+    selector = '.wrapper .styleguide-grid';
+    className = 'styleguide-grid';
 
     constructor() {
         this.setGrid();
@@ -12,7 +14,7 @@ export class Grid {
 
     setGrid(): void {
         this.grid = $('<div />')
-            .addClass('styleguide-grid')
+            .addClass(this.className)
             .css('position', 'fixed')
             .css('display', 'flex')
             .css('flex-wrap', 'wrap')
@@ -39,13 +41,36 @@ export class Grid {
     }
 
     overlay(): any {
-        console.log("overlay show");
-        console.log(new Breakpoints().is);
         return this.grid
             .css('top', $('.wrapper').offset().top)
             .css('left', $('.wrapper').offset().left)
             .width($('.wrapper').outerWidth())
             .height($('.wrapper').outerHeight())
             .prepend(this.cols);
+    }
+
+    addGrid(): void {
+        $('.wrapper').prepend(
+            this.overlay()
+        );
+
+        $('.nav-link.'+ this.className)
+            .addClass('active')
+            .addClass('grid-visible');
+    }
+
+    removeGrid(): void {
+        $(this.selector).remove();
+        $('.nav-link.'+ this.className)
+            .removeClass('active')
+            .removeClass('grid-visible');
+    }
+
+    toggleGrid(selector: any): void {
+        if (selector.hasClass('grid-visible')) {
+            this.removeGrid();
+        } else {
+            this.addGrid();
+        }
     }
 }
