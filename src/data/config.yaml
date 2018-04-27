@@ -1,13 +1,29 @@
+# main key name
 config:
+  # export value #1
   breakpoints:
     export:
+      # possible keys at the moments are
+      # scss / constantsts
+      # more to come though
       scss:
+        # variable name for writing in the file
         name: grid-breakpoints
+        # file path and name (relative to the gulp file)
+        # to write the new file
         file: src/scss/abstracts/_breakpoints.scss
-#      constantsts:
-#        name: site.breakpoints
-#        file: src/test.constantsts
-#        additional: max
+      # example for writing a constantsts file
+      # for using it in typo3
+      # same name/file as in scss
+      constantsts:
+        name: site.breakpoints
+        file: src/typo3conf/ext/theme/Configuration/TypoScript/breakpoints.constantsts
+        # add additional value for setting
+        # a breakpoint-max value
+        # (-1px to the upcomming breakpoint)
+        additional: max
+    # the values which should be written to
+    # the new file
     values:
       - { key: xs, value: 0 }
       - { key: sm, value: 576px }
@@ -16,6 +32,8 @@ config:
       - { key: xl, value: 1200px }
       - { key: xxl, value: 1380px }
 
+  # export value #2
+  # same keys possible as above
   container:
     export:
       scss:

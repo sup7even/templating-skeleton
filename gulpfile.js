@@ -281,32 +281,52 @@ gulp.task('serve', ['default'], function () {
 
 /**
  * reads yaml config and writes several files
- * e.g. scss files
+ * e.g. scss files or typoscript files
  */
 gulp.task('config', function(){
+    // read the desired yaml file
+    // look for possible options in the yaml file
     read('src/data/config.yaml', function(err, data) {
+        // log error to console, if file is missing
+        // not not correct yaml
         if (err) {
             return console.log(err);
         }
 
+        // pre defined variables
         var config = data['config'],
             exports,
             type,
             i;
 
+        // loop through the export keys
+        // located in the yaml file.
+        // in this case breakpoints and containers
         for (exports in config) {
             var entry = config[exports];
             var values = entry['values'];
 
+            // loop through the type in each
+            // export loop. in this case
+            // it is the scss and constantsts in the
+            // first export and the scss in the second
+            // breakpoint
             for (type in entry['export']) {
                 var _variableName = entry['export'][type].name,
                     _fileName = entry['export'][type].file,
                     _return = [];
 
+                // get the values for the desired export file
                 for(i in values) {
+                    // parse the i as an integer for math operations
                     i = parseInt(i);
+
+                    // get the line for each value depending on the
+                    // export type (scss/typoscript
                     _return.push(writeLn(values[i].key, values[i].value, type));
 
+                    // add the additional line, if the additional key
+                    // is set. very specific. dont know if that is a cool way
                     if (typeof entry['export'][type].additional !== 'undefined') {
                         if (typeof values[i + 1] !== 'undefined') {
                             _return.push(writeLn(values[i].key +'-'+ entry['export'][type].additional, parseInt(values[i + 1].value) - 1 +'px', type));
@@ -314,7 +334,11 @@ gulp.task('config', function(){
                     }
                 }
 
+                // wrap and join the array with some comments and line breaks
                 var content = wrap(joinLines(_return, type), _variableName, type, _fileName);
+
+                // finaly write the desired file to the folder given in the
+                // yaml file or log an error to the console if it fails
                 writeFile(_fileName, content, function(err) {
                     if (err) {
                         console.log(err);
@@ -325,6 +349,21 @@ gulp.task('config', function(){
     });
 });
 
+/**
+ * returns the line for the export file
+ * active exportable lines are for scss files
+ * or typoscript files. each file has different
+ * separators. you can add for each type in your
+ * export a different separator key, if needed.
+ *
+ * maybe we should put that in a different class
+ * for better usability
+ *
+ * @param key
+ * @param value
+ * @param type
+ * @return {string}
+ */
 function writeLn(key, value, type) {
     var separator = {
         'scss': ': ',
@@ -334,11 +373,26 @@ function writeLn(key, value, type) {
     return key + (typeof separator[type] !== 'undefined' ? separator[type] : '') + value;
 }
 
+/**
+ * this function join the givven arrays with an
+ * defined END OF LINE (eol) string. in this case,
+ * the scss files need a comma at the end. if no key
+ * is given for the type, then nothing will be added.
+ *
+ * add eol strings for each type you want to join, if needed
+ *
+ * maybe we should put that in a different class
+ * for better usability
+ *
+ * @param object
+ * @param type
+ */
 function joinLines(object, type) {
     var eol = {
         'scss': ',',
     };
 
+    // simply add a tab for better readability to each line.
     for(k in object) {
         object[k] = '\t'+ object[k];
     }
@@ -346,6 +400,25 @@ function joinLines(object, type) {
     return object.join((typeof eol[type] !== 'undefined' ? eol[type] : '') +'\n');
 }
 
+/**
+ * wrap the string you get with specific variable
+ * names from the yaml file. each type can have
+ * different variableName write styles. depends
+ * on what your file should be (scss, typoscript or
+ * maybe a php file)
+ *
+ * even a end string could be set in the variables for
+ * each type.
+ *
+ * the whole string is wrapped with comments for better
+ * readability and understandability
+ *
+ * @param string
+ * @param variableName
+ * @param type
+ * @param fileName
+ * @return {string}
+ */
 function wrap(string, variableName, type, fileName) {
     var wrap = {
         'scss': {
